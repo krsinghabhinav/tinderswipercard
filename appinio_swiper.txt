@@ -1,0 +1,195 @@
+import 'package:appinio_swiper/appinio_swiper.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+
+class Example extends StatefulWidget {
+ @override
+ _ExampleState createState() => _ExampleState();
+}
+
+
+class _ExampleState extends State<Example> {
+ final List<String> imageUrls = [
+   'https://images.pexels.com/photos/2053852/pexels-photo-2053852.jpeg',
+   'https://images.pexels.com/photos/725458/pexels-photo-725458.jpeg',
+   'https://images.pexels.com/photos/2965275/pexels-photo-2965275.jpeg',
+   'https://images.pexels.com/photos/3014850/pexels-photo-3014850.jpeg',
+   'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg',
+   'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg',
+   'https://images.pexels.com/photos/2053852/pexels-photo-2053852.jpeg',
+   'https://images.pexels.com/photos/725458/pexels-photo-725458.jpeg',
+   'https://images.pexels.com/photos/2965275/pexels-photo-2965275.jpeg',
+   'https://images.pexels.com/photos/3014850/pexels-photo-3014850.jpeg',
+   'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg',
+   'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg',
+   'https://images.pexels.com/photos/2053852/pexels-photo-2053852.jpeg',
+   'https://images.pexels.com/photos/725458/pexels-photo-725458.jpeg',
+   'https://images.pexels.com/photos/2965275/pexels-photo-2965275.jpeg',
+   'https://images.pexels.com/photos/3014850/pexels-photo-3014850.jpeg',
+   'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg',
+   'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg',
+   'https://images.pexels.com/photos/2053852/pexels-photo-2053852.jpeg',
+   'https://images.pexels.com/photos/725458/pexels-photo-725458.jpeg',
+   'https://images.pexels.com/photos/2965275/pexels-photo-2965275.jpeg',
+   'https://images.pexels.com/photos/3014850/pexels-photo-3014850.jpeg',
+   'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg',
+   'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg',
+   'https://images.pexels.com/photos/2053852/pexels-photo-2053852.jpeg',
+   'https://images.pexels.com/photos/725458/pexels-photo-725458.jpeg',
+   'https://images.pexels.com/photos/2965275/pexels-photo-2965275.jpeg',
+   'https://images.pexels.com/photos/3014850/pexels-photo-3014850.jpeg',
+   'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg',
+   'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg',
+   'https://images.pexels.com/photos/2053852/pexels-photo-2053852.jpeg',
+   'https://images.pexels.com/photos/725458/pexels-photo-725458.jpeg',
+   'https://images.pexels.com/photos/2965275/pexels-photo-2965275.jpeg',
+   'https://images.pexels.com/photos/3014850/pexels-photo-3014850.jpeg',
+   'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg',
+   'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg',
+   'https://images.pexels.com/photos/2053852/pexels-photo-2053852.jpeg',
+   'https://images.pexels.com/photos/725458/pexels-photo-725458.jpeg',
+   'https://images.pexels.com/photos/2965275/pexels-photo-2965275.jpeg',
+   'https://images.pexels.com/photos/3014850/pexels-photo-3014850.jpeg',
+   'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg',
+   'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg',
+   'https://images.pexels.com/photos/2053852/pexels-photo-2053852.jpeg',
+   'https://images.pexels.com/photos/725458/pexels-photo-725458.jpeg',
+   'https://images.pexels.com/photos/2965275/pexels-photo-2965275.jpeg',
+   'https://images.pexels.com/photos/3014850/pexels-photo-3014850.jpeg',
+   'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg',
+   'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg',
+   'https://images.pexels.com/photos/2053852/pexels-photo-2053852.jpeg',
+   'https://images.pexels.com/photos/725458/pexels-photo-725458.jpeg',
+   'https://images.pexels.com/photos/2965275/pexels-photo-2965275.jpeg',
+   'https://images.pexels.com/photos/3014850/pexels-photo-3014850.jpeg',
+   'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg',
+   'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg',
+ 
+ ];
+
+
+ List<bool> likedStatus = [];
+
+
+ @override
+ void initState() {
+   super.initState();
+   likedStatus = List.generate(imageUrls.length, (index) => false);
+ }
+
+
+ void toggleLike(int index) {
+   setState(() {
+     likedStatus[index] = !likedStatus[index];
+   });
+ }
+
+
+ @override
+ Widget build(BuildContext context) {
+   return CupertinoPageScaffold(
+     navigationBar: CupertinoNavigationBar(
+       middle: Text('Wedding Swiper'),
+     ),
+     child: SafeArea(
+       child: Column(
+         children: [
+           SizedBox(height: 20),
+           SizedBox(
+             height: MediaQuery.of(context).size.height * 0.6,
+             child: AppinioSwiper(
+               cardCount: imageUrls.length,
+               cardBuilder: (BuildContext context, int index) {
+                 return KeyedSubtree(
+                   key: ValueKey(index),
+                   child: Container(
+                     margin: EdgeInsets.symmetric(horizontal: 16, vertical: 2),
+                     decoration: BoxDecoration(
+                       color: Colors.white,
+                       borderRadius: BorderRadius.circular(12),
+                       boxShadow: [
+                         BoxShadow(
+                           color: Colors.black26,
+                           blurRadius: 8,
+                           spreadRadius: 2,
+                         ),
+                       ],
+                     ),
+                     child: Column(
+                       children: [
+                         Expanded(
+                           child: ClipRRect(
+                             borderRadius: BorderRadius.circular(12),
+                             child: Image.network(
+                               imageUrls[index],
+                               fit: BoxFit.cover,
+                               width: double.infinity,
+                               height: double.infinity,
+                             ),
+                           ),
+                         ),
+                         Container(
+                           padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                           decoration: BoxDecoration(
+                             color: Colors.white,
+                             borderRadius: BorderRadius.only(
+                               bottomLeft: Radius.circular(12),
+                               bottomRight: Radius.circular(12),
+                             ),
+                           ),
+                           child: Row(
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                             children: [
+                               Column(
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                 children: [
+                                   Text(
+                                     'Wedding Moment ${index + 1}',
+                                     style: TextStyle(
+                                       fontSize: 16,
+                                       fontWeight: FontWeight.bold,
+                                     ),
+                                   ),
+                                   SizedBox(height: 4),
+                                   Text(
+                                     'Captured with love',
+                                     style: TextStyle(
+                                       fontSize: 14,
+                                       color: Colors.grey,
+                                     ),
+                                   ),
+                                 ],
+                               ),
+                               Row(
+                                 children: [
+                                   GestureDetector(
+                                     onTap: () => toggleLike(index),
+                                     child: Icon(
+                                       likedStatus[index] ? CupertinoIcons.heart_fill : CupertinoIcons.heart,
+                                       color: likedStatus[index] ? Colors.red : Colors.black,
+                                       size: 28,
+                                     ),
+                                   ),
+                                   SizedBox(width: 16),
+                                   Icon(CupertinoIcons.ellipsis, color: Colors.black, size: 28),
+                                 ],
+                               ),
+                             ],
+                           ),
+                         ),
+                       ],
+                     ),
+                   ),
+                 );
+               },
+             ),
+           ),
+           SizedBox(height: 20),
+         ],
+       ),
+     ),
+   );
+ }
+}
+

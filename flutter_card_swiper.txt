@@ -1,0 +1,191 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_card_swiper/flutter_card_swiper.dart';
+
+
+class FlutterCardSwiper extends StatefulWidget {
+ const FlutterCardSwiper({super.key});
+
+
+ @override
+ State<FlutterCardSwiper> createState() => _FlutterCardSwiperPageState();
+}
+
+
+class _FlutterCardSwiperPageState extends State<FlutterCardSwiper> {
+ final CardSwiperController controller = CardSwiperController();
+ final List<bool> likedStatus = [];
+
+
+ final List<String> cards = [
+   'https://images.pexels.com/photos/2053852/pexels-photo-2053852.jpeg',
+   'https://images.pexels.com/photos/725458/pexels-photo-725458.jpeg',
+   'https://images.pexels.com/photos/2965275/pexels-photo-2965275.jpeg',
+   'https://images.pexels.com/photos/3014850/pexels-photo-3014850.jpeg',
+   'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg',
+   'https://images.pexels.com/photos/2053852/pexels-photo-2053852.jpeg',
+   'https://images.pexels.com/photos/725458/pexels-photo-725458.jpeg',
+   'https://images.pexels.com/photos/2965275/pexels-photo-2965275.jpeg',
+   'https://images.pexels.com/photos/3014850/pexels-photo-3014850.jpeg',
+   'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg',
+   'https://images.pexels.com/photos/2053852/pexels-photo-2053852.jpeg',
+   'https://images.pexels.com/photos/725458/pexels-photo-725458.jpeg',
+   'https://images.pexels.com/photos/2965275/pexels-photo-2965275.jpeg',
+   'https://images.pexels.com/photos/3014850/pexels-photo-3014850.jpeg',
+   'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg',
+   'https://images.pexels.com/photos/2053852/pexels-photo-2053852.jpeg',
+   'https://images.pexels.com/photos/725458/pexels-photo-725458.jpeg',
+   'https://images.pexels.com/photos/2965275/pexels-photo-2965275.jpeg',
+   'https://images.pexels.com/photos/3014850/pexels-photo-3014850.jpeg',
+   'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg',
+   'https://images.pexels.com/photos/2053852/pexels-photo-2053852.jpeg',
+   'https://images.pexels.com/photos/725458/pexels-photo-725458.jpeg',
+   'https://images.pexels.com/photos/2965275/pexels-photo-2965275.jpeg',
+   'https://images.pexels.com/photos/3014850/pexels-photo-3014850.jpeg',
+   'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg',
+   'https://images.pexels.com/photos/2053852/pexels-photo-2053852.jpeg',
+   'https://images.pexels.com/photos/725458/pexels-photo-725458.jpeg',
+   'https://images.pexels.com/photos/2965275/pexels-photo-2965275.jpeg',
+   'https://images.pexels.com/photos/3014850/pexels-photo-3014850.jpeg',
+   'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg',
+ 
+ ];
+
+
+ @override
+ void initState() {
+   super.initState();
+   likedStatus.addAll(List.generate(cards.length, (_) => false));
+ }
+
+
+ void toggleLike(int index) {
+   setState(() {
+     likedStatus[index] = !likedStatus[index];
+   });
+ }
+
+
+ @override
+ void dispose() {
+   controller.dispose();
+   super.dispose();
+ }
+
+
+ @override
+ Widget build(BuildContext context) {
+   return Scaffold(
+     body: SafeArea(
+       child: Column(
+         children: [
+           SizedBox(
+             height: MediaQuery.of(context).size.height * 0.6,
+             child: CardSwiper(
+               controller: controller,
+               cardsCount: cards.length,
+               onSwipe: _onSwipe,
+               onUndo: _onUndo,
+               numberOfCardsDisplayed: 3,
+               backCardOffset: const Offset(40, 40),
+               padding: const EdgeInsets.all(24.0),
+               cardBuilder: (context, index, _, __) => Card(
+                 elevation: 4,
+                 shape: RoundedRectangleBorder(
+                     borderRadius: BorderRadius.circular(12)),
+                 child: Column(
+                   children: [
+                     Expanded(
+                       child: ClipRRect(
+                         borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
+                         child: Image.network(
+                           cards[index],
+                         fit: BoxFit.cover,
+                               width: double.infinity,
+                               height: double.infinity,
+                         ),
+                       ),
+                     ),
+                     Padding(
+                       padding: const EdgeInsets.all(12.0),
+                       child: Row(
+                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                         children: [
+                           const Text(
+                             "Beautiful Scenery",
+                             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                           ),
+                           IconButton(
+                             icon: Icon(
+                               likedStatus[index] ? Icons.favorite : Icons.favorite_border,
+                               color: likedStatus[index] ? Colors.red : Colors.grey,
+                             ),
+                             onPressed: () => toggleLike(index),
+                           ),
+                         ],
+                       ),
+                     ),
+                   ],
+                 ),
+               ),
+             ),
+           ),
+          
+
+
+
+
+           Spacer(),
+           Padding(
+             padding: const EdgeInsets.all(16.0),
+             child: Row(
+               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+               children: [
+                 FloatingActionButton(
+                   onPressed: controller.undo,
+                   child: const Icon(Icons.rotate_left),
+                 ),
+                 FloatingActionButton(
+                   onPressed: () => controller.swipe(CardSwiperDirection.left),
+                   child: const Icon(Icons.keyboard_arrow_left),
+                 ),
+                 FloatingActionButton(
+                   onPressed: () => controller.swipe(CardSwiperDirection.right),
+                   child: const Icon(Icons.keyboard_arrow_right),
+                 ),
+                 FloatingActionButton(
+                   onPressed: () => controller.swipe(CardSwiperDirection.top),
+                   child: const Icon(Icons.keyboard_arrow_up),
+                 ),
+                 FloatingActionButton(
+                   onPressed: () => controller.swipe(CardSwiperDirection.bottom),
+                   child: const Icon(Icons.keyboard_arrow_down),
+                 ),
+               ],
+             ),
+           ),
+         ],
+       ),
+     ),
+   );
+ }
+
+
+ bool _onSwipe(int previousIndex, int? currentIndex, CardSwiperDirection direction) {
+   debugPrint(
+     'The card $previousIndex was swiped to the ${direction.name}. Now the card $currentIndex is on top',
+   );
+   return true;
+ }
+
+
+ bool _onUndo(int? previousIndex, int currentIndex, CardSwiperDirection direction) {
+   debugPrint(
+     'The card $currentIndex was undone from the ${direction.name}',
+   );
+   return true;
+ }
+}
+
+
+
